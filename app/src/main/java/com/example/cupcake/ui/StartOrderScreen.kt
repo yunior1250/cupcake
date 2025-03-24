@@ -49,6 +49,7 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 @Composable
 fun StartOrderScreen(
     quantityOptions: List<Pair<Int, Int>>,
+    onNextButtonClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -83,13 +84,12 @@ fun StartOrderScreen(
             quantityOptions.forEach { item ->
                 SelectQuantityButton(
                     labelResourceId = item.first,
-                    onClick = {}
+                    onClick = {onNextButtonClicked(item.second)}
                 )
             }
         }
     }
 }
-
 /**
  * Customizable button composable that displays the [labelResourceId]
  * and triggers [onClick] lambda when this composable is clicked
@@ -107,13 +107,13 @@ fun SelectQuantityButton(
         Text(stringResource(labelResourceId))
     }
 }
-
 @Preview
 @Composable
 fun StartOrderPreview() {
     CupcakeTheme {
         StartOrderScreen(
             quantityOptions = DataSource.quantityOptions,
+            onNextButtonClicked = {},
             modifier = Modifier
                 .fillMaxSize()
                 .padding(dimensionResource(R.dimen.padding_medium))
